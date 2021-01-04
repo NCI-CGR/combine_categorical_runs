@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: combine_categorical_runs
+Description: merge results of SAIGE categorical runs into consensus results
+Requires: gcc >= 8.2.0
+Version: @PACKAGE_VERSION@
+Libs: -L${libdir}
+Cflags: -I${includedir}/combine_categorical_runs-0.1.0 -I${libdir}/combine_categorical_runs-0.1.0/include
