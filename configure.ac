@@ -43,7 +43,8 @@ AX_CHECK_ZLIB
 AX_CHECK_BZIP2
 
 AC_CHECK_LIB([m],[cos])
-
+AC_CHECK_LIB([gmp],[__gmpz_init],,[AC_MSG_ERROR([GNU MP not found])])
+AC_CHECK_LIB([mpfr],[mpfr_init2],,[AC_MSG_ERROR([MPFR not found])])
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
