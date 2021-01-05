@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(combine_categorical_runs, 0.1.0, palmercd@nih.gov)
+AC_INIT(combine_categorical_runs, 0.2.0, palmercd@nih.gov)
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects])
 AM_SILENT_RULES([yes])
