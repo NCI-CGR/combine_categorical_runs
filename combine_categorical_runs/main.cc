@@ -6,8 +6,13 @@
   Copyright 2020 Cameron Palmer.
  */
 
+// required definition for mpfr in C++
+#define MPFR_USE_INTMAX_T 1
+
 #include <algorithm>
+#include <cinttypes>
 #include <cmath>
+#include <cstdarg>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -16,6 +21,9 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+// this inclusion must come after inttypes and stdarg
+#include <mpfr.h>  // NOLINT
 
 #include "finter/finter.h"
 
@@ -153,7 +161,34 @@ void process_data(
       // enforce presence in all input files
       if (n_valid == input_filenames.size()) {
         // output p-value is, evidently, 1 - prod(1 - min(p))
-        consensus_p = 1 - pow(1.0 - min_p, n_valid);
+        // just a simple Bonferroni correction
+
+        // precision error! if p is low enough,
+        // this math fails with double precision
+        if (min_p < 5e-8) {
+          // treat individual variants with GWS values carefully.
+          // this is way too large by the way! double precision works
+          // ok for these. but it eventually breaks down, and GWS
+          // as a threshold for different treatment is a thing that
+          // is accepted in GWAS
+
+          // use mpfr!
+          mpfr_t x, y;
+          try {
+            mpfr_inits2(256, x, y, (mpfr_ptr)0);
+            mpfr_set_d(x, min_p, MPFR_RNDD);
+            mpfr_ui_sub(y, 1, x, MPFR_RNDD);
+            mpfr_pow_ui(x, y, n_valid, MPFR_RNDD);
+            mpfr_ui_sub(y, 1, x, MPFR_RNDD);
+            consensus_p = mpfr_get_d(y, MPFR_RNDD);
+            mpfr_clears(x, y, (mpfr_ptr)0);
+          } catch (...) {
+            mpfr_clears(x, y, (mpfr_ptr)0);
+            throw;
+          }
+        } else {
+          consensus_p = 1 - pow(1.0 - min_p, n_valid);
+        }
         // otherwise report annotation data from first comparison?
         std::istringstream strm2(annotation_source);
         std::ostringstream o;
