@@ -53,7 +53,7 @@ AC_CHECK_LIB([mpfr],[mpfr_init2],,[AC_MSG_ERROR([MPFR not found])])
 
 AC_CONFIG_FILES([
  Makefile
- combine_categorical_runs-0.1.0.pc
+ combine_categorical_runs-0.2.0.pc
 ])
 AC_CONFIG_SUBDIRS([finter])
 
