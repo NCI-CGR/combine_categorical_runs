@@ -81,4 +81,6 @@ By default, the final compiled program can be run with
 
 ## Version History
 
+14 01 2021: project bumped to v1.0.0 and pushed to public GitHub
+
 04 01 2021: project generated from cookiecutter template
