@@ -43,7 +43,8 @@ AX_CHECK_ZLIB
 AX_CHECK_BZIP2
 
 AC_CHECK_LIB([m],[cos])
-AC_CHECK_LIB([gmp],[__gmpz_init],,[AC_MSG_ERROR([GNU MP not found])])
+# for mysterious reasons, this library doesn't play well with conda with AC_CHECK_LIB
+AC_CHECK_HEADER([gmp.h],,[AC_MSG_ERROR([GNU MP not found])])
 AC_CHECK_LIB([mpfr],[mpfr_init2],,[AC_MSG_ERROR([MPFR not found])])
 # Checks for header files.
 
