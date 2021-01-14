@@ -45,7 +45,8 @@ AX_CHECK_BZIP2
 AC_CHECK_LIB([m],[cos])
 # for mysterious reasons, this library doesn't play well with conda with AC_CHECK_LIB
 AC_CHECK_HEADER([gmp.h],,[AC_MSG_ERROR([GNU MP not found])])
-AC_CHECK_LIB([mpfr],[mpfr_init2],,[AC_MSG_ERROR([MPFR not found])])
+# apparently same deal for mpfr
+AC_CHECK_HEADER([mpfr.h],,[AC_MSG_ERROR([MPFR not found])])
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.
