@@ -54,10 +54,10 @@ AC_DEFUN([AX_CHECK_MPFR],
         AC_REQUIRE([AC_PROG_CC])
 	    export want_mpfr
 		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS -I/usr/include"
+		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 		export CPPFLAGS
 		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS -L/usr/lib"
+		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 		export LDFLAGS
 		AC_CACHE_CHECK([whether the mpfr library is available],
 					   ax_cv_mpfr,
@@ -71,7 +71,7 @@ AC_DEFUN([AX_CHECK_MPFR],
 		])
 		if test "$ax_cv_mpfr" = yes; then
 				AC_DEFINE(HAVE_MPFR,,[define if the mpfr library is available])
-                  MPFRLIBDIR="/usr/lib"
+                  MPFRLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
                 if test "x$ax_mpfr_user_lib" = "x"; then
                 for libextension in `ls $MPFRLIBDIR/libmpfr*.so* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(mpfr.*\)\.so.*$;\1;'` `ls $MPFRLIBDIR/libmpfr*.dylib* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(mpfr.*\)\.dylib.*$;\1;'` `ls $MPFRLIBDIR/libmpfr*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(mpfr.*\)\.a.*$;\1;'` ; do
                      ax_lib=${libextension}

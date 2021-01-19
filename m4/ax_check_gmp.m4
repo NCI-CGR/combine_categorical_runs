@@ -54,10 +54,10 @@ AC_DEFUN([AX_CHECK_GMP],
         AC_REQUIRE([AC_PROG_CC])
 	    export want_gmp
 		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS -I/usr/include"
+		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 		export CPPFLAGS
 		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS -L/usr/lib"
+		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 		export LDFLAGS
 		AC_CACHE_CHECK([whether the gmp library is available],
 					   ax_cv_gmp,
@@ -71,7 +71,7 @@ AC_DEFUN([AX_CHECK_GMP],
 		])
 		if test "$ax_cv_gmp" = yes; then
 				AC_DEFINE(HAVE_GMP,,[define if the gmp library is available])
-                  GMPLIBDIR="/usr/lib"
+                  GMPLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
                 if test "x$ax_gmp_user_lib" = "x"; then
                 for libextension in `ls $GMPLIBDIR/libgmp*.so* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(gmp.*\)\.so.*$;\1;'` `ls $GMPLIBDIR/libgmp*.dylib* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(gmp.*\)\.dylib.*$;\1;'` `ls $GMPLIBDIR/libgmp*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(gmp.*\)\.a.*$;\1;'` ; do
                      ax_lib=${libextension}

@@ -54,10 +54,10 @@ AC_DEFUN([AX_CHECK_ZLIB],
         AC_REQUIRE([AC_PROG_CC])
 	    export want_zlib
 		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS -I/usr/include"
+		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 		export CPPFLAGS
 		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS -L/usr/lib"
+		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 		export LDFLAGS
 		AC_CACHE_CHECK([whether the zlib library is available],
 					   ax_cv_zlib,
@@ -71,7 +71,7 @@ AC_DEFUN([AX_CHECK_ZLIB],
 		])
 		if test "$ax_cv_zlib" = yes; then
 				AC_DEFINE(HAVE_ZLIB,,[define if the zlib library is available])
-                  ZLIBLIBDIR="/usr/lib"
+                  ZLIBLIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
                 if test "x$ax_zlib_user_lib" = "x"; then
                 for libextension in `ls $ZLIBLIBDIR/libz*.so* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(z.*\)\.so.*$;\1;'` `ls $ZLIBLIBDIR/libz*.dylib* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(z.*\)\.dylib.*$;\1;'` `ls $ZLIBLIBDIR/libz*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(z.*\)\.a.*$;\1;'` ; do
                      ax_lib=${libextension}

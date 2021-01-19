@@ -54,10 +54,10 @@ AC_DEFUN([AX_CHECK_BZIP2],
         AC_REQUIRE([AC_PROG_CC])
 	    export want_bzip2
 		CPPFLAGS_SAVED="$CPPFLAGS"
-		CPPFLAGS="$CPPFLAGS -I/usr/include"
+		CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 		export CPPFLAGS
 		LDFLAGS_SAVED="$LDFLAGS"
-		LDFLAGS="$LDFLAGS -L/usr/lib"
+		LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 		export LDFLAGS
 		AC_CACHE_CHECK([whether the bzip2 library is available],
 					   ax_cv_bzip2,
@@ -71,7 +71,7 @@ AC_DEFUN([AX_CHECK_BZIP2],
 		])
 		if test "$ax_cv_bzip2" = yes; then
 				AC_DEFINE(HAVE_BZIP2,,[define if the bzip2 library is available])
-                  BZIP2LIBDIR="/usr/lib"
+                  BZIP2LIBDIR=`echo $BOOST_LDFLAGS | sed -e 's/@<:@^\/@:>@*//'`
                 if test "x$ax_bzip2_user_lib" = "x"; then
                 for libextension in `ls $BZIP2LIBDIR/libbz2*.so* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(bz2.*\)\.so.*$;\1;'` `ls $BZIP2LIBDIR/libbz2*.dylib* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(bz2.*\)\.dylib.*$;\1;'` `ls $BZIP2LIBDIR/libbz2*.a* 2>/dev/null | sed 's,.*/,,' | sed -e 's;^lib\(bz2.*\)\.a.*$;\1;'` ; do
                      ax_lib=${libextension}
