@@ -7,8 +7,6 @@
 
 #include "finter/finter_reader_bzip2.h"
 
-#ifdef FINTER_HAVE_LIBBZ2
-
 combine_categorical_runs::finter_reader_bzip2::finter_reader_bzip2()
     : finter_reader(),
       _raw_input(0),
@@ -185,5 +183,3 @@ void combine_categorical_runs::finter_reader_bzip2::refresh_buffer() {
     _fail = true;
   }
 }
-
-#endif  // HAVE_LIBBZ2

@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(combine_categorical_runs, 1.0.0, palmercd@nih.gov)
+AC_INIT(combine_categorical_runs, 1.1.0, palmercd@nih.gov)
 AC_CONFIG_AUX_DIR([.])
 AM_INIT_AUTOMAKE([-Wall -Werror subdir-objects])
 AM_SILENT_RULES([yes])
@@ -55,7 +55,7 @@ AX_CHECK_MPFR
 
 AC_CONFIG_FILES([
  Makefile
- combine_categorical_runs-1.0.0.pc
+ combine_categorical_runs-1.1.0.pc
 ])
 AC_CONFIG_SUBDIRS([finter])
 
