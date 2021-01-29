@@ -57,6 +57,4 @@ AC_CONFIG_FILES([
  Makefile
  combine_categorical_runs-1.1.0.pc
 ])
-AC_CONFIG_SUBDIRS([finter])
-
 AC_OUTPUT

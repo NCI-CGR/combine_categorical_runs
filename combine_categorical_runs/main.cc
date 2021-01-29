@@ -63,7 +63,7 @@ void process_data(
         &combinatorial_file_counts) {
   if (input_filenames.size() < 2)
     throw std::domain_error("process_data: expected at least two input files");
-  std::vector<combine_categorical_runs::finter_reader *> inputs;
+  std::vector<finter::finter_reader *> inputs;
   std::vector<std::string> input_lines, input_ids;
   std::string line = "", catcher = "", target_id = "", a1 = "", a2 = "";
   std::vector<double> input_pvalues, input_betas;
@@ -80,7 +80,7 @@ void process_data(
   input_pvalues.resize(input_filenames.size(), 0.0);
   input_n.resize(input_filenames.size(), std::pair<unsigned, unsigned>(0, 0));
   comparison_numbers.resize(input_filenames.size(), 0);
-  combine_categorical_runs::finter_writer *output = 0;
+  finter::finter_writer *output = 0;
   try {
     for (unsigned i = 0; i < input_filenames.size(); ++i) {
       comparison_numbers.at(i) = get_comparison_number(input_filenames.at(i));
@@ -270,7 +270,7 @@ void process_data(
     delete output;
     output = 0;
   } catch (...) {
-    for (std::vector<combine_categorical_runs::finter_reader *>::iterator iter =
+    for (std::vector<finter::finter_reader *>::iterator iter =
              inputs.begin();
          iter != inputs.end(); ++iter) {
       if (*iter) delete *iter;
@@ -283,7 +283,7 @@ void process_data(
 void find_consensus_variants(const std::string &filename,
                              std::map<std::string, unsigned> *target) {
   if (!target) throw std::domain_error("find_consensus_variants: null pointer");
-  combine_categorical_runs::finter_reader *input = 0;
+  finter::finter_reader *input = 0;
   std::map<std::string, unsigned>::iterator finder;
   std::string line = "", id = "", catcher = "", a1 = "", a2 = "";
   try {
@@ -335,7 +335,7 @@ void compute_combinatorial_uniques(
   res.clear();
   res.resize(max_comparison + 1);
   for (unsigned i = 0; i < model_matrix_filenames.size(); ++i) {
-    combine_categorical_runs::finter_reader *input = 0;
+    finter::finter_reader *input = 0;
     try {
       input = combine_categorical_runs::reconcile_reader(
           model_matrix_filenames.at(i));
