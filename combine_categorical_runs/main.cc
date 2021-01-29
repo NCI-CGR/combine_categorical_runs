@@ -87,9 +87,9 @@ void process_data(
     }
     for (unsigned i = 0; i < input_filenames.size(); ++i) {
       inputs.at(i) =
-          combine_categorical_runs::reconcile_reader(input_filenames.at(i));
+          finter::reconcile_reader(input_filenames.at(i));
     }
-    output = combine_categorical_runs::reconcile_writer(output_filename);
+    output = finter::reconcile_writer(output_filename);
     for (unsigned i = 0; i < input_filenames.size(); ++i) {
       inputs.at(i)->getline(&line);
     }
@@ -287,7 +287,7 @@ void find_consensus_variants(const std::string &filename,
   std::map<std::string, unsigned>::iterator finder;
   std::string line = "", id = "", catcher = "", a1 = "", a2 = "";
   try {
-    input = combine_categorical_runs::reconcile_reader(filename);
+    input = finter::reconcile_reader(filename);
     input->getline(&line);
     while (input->getline(&line)) {
       std::istringstream strm1(line);
@@ -337,7 +337,7 @@ void compute_combinatorial_uniques(
   for (unsigned i = 0; i < model_matrix_filenames.size(); ++i) {
     finter::finter_reader *input = 0;
     try {
-      input = combine_categorical_runs::reconcile_reader(
+      input = finter::reconcile_reader(
           model_matrix_filenames.at(i));
       input->getline(&line);
       unsigned n_total = 0, n_alternate = 0;
