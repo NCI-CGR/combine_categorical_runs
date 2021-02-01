@@ -10,7 +10,7 @@ dependencies:
   - cppcheck
   - sarcasm::clang-format
 
-
+  - libtool
   - automake
   - autoconf
   - make>=4.2
